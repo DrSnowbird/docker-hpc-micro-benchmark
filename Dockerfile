@@ -5,9 +5,9 @@ MAINTAINER DrSnowbird "drsnowbird@openkbs.org"
 ## Somehow OSU_VERSION:-5.4.1 build has some missing files. back to 5.3.2
 ##
 
-#ARG OSU_VERSION=${OSU_VERSION:-5.4.1}
+ARG OSU_VERSION=${OSU_VERSION:-5.4.1}
 #ARG OSU_VERSION=${OSU_VERSION:-5.3.2}
-ARG OSU_VERSION=${OSU_VERSION}
+#ARG OSU_VERSION=${OSU_VERSION}
 
 RUN \
    wget --no-check-certificate http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-${OSU_VERSION}.tar.gz && \
