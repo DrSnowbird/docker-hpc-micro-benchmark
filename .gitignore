@@ -33,3 +33,7 @@
 
 # application temp code 
 osu-micro*
+Micro-Benchmarks*
+*.tar.gz
+*.tgz
+*.swp
