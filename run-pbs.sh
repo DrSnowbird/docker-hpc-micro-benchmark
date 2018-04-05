@@ -4,28 +4,28 @@ MY_DIR="$(dirname $(readlink -f $0))"
 MY_HOME="$HOME"
 
 ## Submit the job with a specific name
-#MSUB -N singularity_gamess
+#MSUB -N singularity_micro-benchmark
 
 ## Specify resources
-#MSUB  -l nodes=1,walltime=1:00 -W ENVREQUESTED:TRUE 
+#MSUB  -l nodes=2,walltime=1:00 -W ENVREQUESTED:TRUE 
 
 ## Combine the standard out and standard error in the same output file
 #MSUB -j oe
-#MSUB -o singularity_gamess.out
+#MSUB -o singularity_micro-benchmark.out
 
 ## Pass environment variables
 #MSUB -E
 
 ## Before running, make sure you have the image downloaded in the folder 
 ## with custom local image name
-# singularity pull --name docker-gamess.simg docker://openkbs/docker-gamess 
+# singularity pull --name docker-hpc-micro-benchmark.simg docker://openkbs/docker-hpc-micro-benchmark 
 # 
 
 IMAGE_PATH=docker://openkbs
 ## 
 #IMAGE_PATH=shub://openkbs
 
-IMAGE_TAG=docker-gamess
+IMAGE_TAG=docker-hpc-micro-benchmark
 IMAGE_NAME=${IMAGE_TAG}.simg
 
 if [ ! -e "${IMAGE_NAME}" ]; then
@@ -44,7 +44,7 @@ cd $PBS_O_WORKDIR
 
 ## INPUT_PATH=/home/rsheu/github-PUBLIC/docker-gamess
 INPUT_PATH=${MY_DIR}
-/usr/local/bin/singularity run ${INPUT_PATH}/${IMAGE_NAME} "${INPUT_PATH}/X-0165-thymine-X.inp" -p 8
+/usr/local/bin/singularity run ${INPUT_PATH}/${IMAGE_NAME}
 
 echo "Job submitted by $PBS_O_LOGNAME ran on $HOSTNAME"
 

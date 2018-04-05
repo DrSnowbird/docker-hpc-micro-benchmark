@@ -5,18 +5,19 @@ MAINTAINER DrSnowbird "drsnowbird@openkbs.org"
 ## Somehow OSU_VERSION:-5.4.1 build has some missing files. back to 5.3.2
 ##
 
-#ARG OSU_VERSION=${OSU_VERSION:-5.4.1}
+## ARG OSU_VERSION=${OSU_VERSION:-5.4.1}
 ARG OSU_VERSION=${OSU_VERSION:-5.3.2}
-#ARG OSU_VERSION=${OSU_VERSION}
 
-ARG OSU_TGZ=osu-micro-benchmarks-${OSU_VERSION}.tar.gz
+ARG OSU_DIR=osu-micro-benchmarks-${OSU_VERSION}
+ARG OSU_TGZ=${OSU_DIR}.tar.gz
+ARG OSU_OPENMPI_BUILD_DIR=build.openmpi
 
 RUN wget http://mvapich.cse.ohio-state.edu/download/mvapich/${OSU_TGZ} && \
    tar xvf ${OSU_TGZ} && \
    rm -rf ${OSU_TGZ} && \
-   cd osu-micro-benchmarks-${OSU_VERSION} && \
-   mkdir build.openmpi && \
-   cd build.openmpi && \
+   cd ${OSU_DIR} && \
+   mkdir ${OSU_OPENMPI_BUILD_DIR} && \
+   cd ${OSU_OPENMPI_BUILD_DIR} && \
    ../configure CC=mpicc --prefix=$(pwd) && \
    make && make install
    
@@ -25,7 +26,7 @@ RUN wget http://mvapich.cse.ohio-state.edu/download/mvapich/${OSU_TGZ} && \
 ##
 ## ../src/osu-micro-benchmarks-5.4/configure CC=mpiicc CXX=mpiicpc CFLAGS=-I$(pwd)/../src/osu-micro-benchmarks-5.4/util --prefix=$(pwd)
 
-RUN echo $HOME
+#RUN echo $HOME
    
 #### ----------------------------
 #### ----- Application Entry ----
@@ -33,12 +34,10 @@ RUN echo $HOME
 # dummy entrypoint.sh file is used below
 # 
 COPY entrypoint.sh /entrypoint.sh
-#ENTRYPOINT ["/entrypoint.sh"]
 
 #### ---- OSU Benchmark ----
-#CMD "${GAMESS_RUN_DIR}/gamess_dft-grad-b_1024.bat" "672" "28"
 ## ENV OSU_MPI_DIR=/osu-micro-benchmarks-5.3.2/build.openmpi/libexec/osu-micro-benchmarks/mpi
-ENV OSU_MPI_DIR=/osu-micro-benchmarks-${OSU_VERSION}/build.openmpi/libexec/osu-micro-benchmarks/mpi
+ENV OSU_MPI_DIR=/${OSU_DIR}/${OSU_OPENMPI_BUILD_DIR}/libexec/osu-micro-benchmarks/mpi
 # collective/osu_allgather
 # collective/osu_allgatherv
 # collective/osu_allreduce
@@ -88,5 +87,5 @@ WORKDIR ${OSU_MPI_DIR}
 ####
 # /usr/local/bin/singularity run ${INPUT_PATH}/${SINGULARITY_IMAGE_NAME} collective/osu_reduce_scatter 2 
 #/usr/local/bin/singularity run ${INPUT_PATH}/${SINGULARITY_IMAGE_NAME} collective/osu_reduce_scatter 2 
-#CMD ["/entrypoint.sh"] 
-CMD ["/bin/bash"]
+ENTRYPOINT ["/entrypoint.sh"]
+

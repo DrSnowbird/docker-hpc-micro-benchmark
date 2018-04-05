@@ -37,3 +37,7 @@ Micro-Benchmarks*
 *.tar.gz
 *.tgz
 *.swp
+
+.data/
+.workspace/
+
