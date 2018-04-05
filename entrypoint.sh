@@ -1,10 +1,15 @@
-#!/bin/bash
+#!/bin/bash -x
 
 echo "Entrypoint call: at `pwd`"
 echo $*
 
-OUT_DIR=/home/developer/data
-    
+if [ -e /home/developer/data ]; then
+    OUT_DIR=/home/developer/data
+else
+    OUT_DIR=${HOME}/data
+    mkdir -p ${OUT_DIR}
+fi
+
 if [ $# -lt 1 ]; then
     echo "*** ERROR ***: missing arguments, OSU_MPI_DIR"
     echo "Usage: <MPI_CMD> <MPI_CORES> ... <more_args>"
