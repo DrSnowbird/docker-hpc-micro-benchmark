@@ -5,6 +5,7 @@ echo $*
 
 OUT_DIR=/home/developer/data
 if [ ! -e /home/developer/data ]; then
+    ## -- for Singularity --
     OUT_DIR=${HOME}/data
     mkdir -p ${OUT_DIR}
 fi

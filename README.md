@@ -2,22 +2,24 @@
 [![](https://images.microbadger.com/badges/image/openkbs/docker-hpc-micro-benchmark.svg)](https://microbadger.com/images/openkbs/docker-hpc-micro-benchmark "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/openkbs/docker-hpc-micro-benchmark.svg)](https://microbadger.com/images/openkbs/docker-hpc-micro-benchmark "Get your own version badge on microbadger.com")
 
 ## How to Use this hpc-micro-benchmark?
-
 ```
-Usage: 
- - Two usages: 
-   1.) No command line arguments for Full OSU Benchmark Tests including pt2pt/* one-sided/* collective/* 
-   2.) Test specific OSU test case, e.g. pt2pt/osu_bw, collective/osu_reduce_scatter, ...
-Syntax: 
+* Syntax: 
   ./run.sh  <MPI_CMD> [<MPI_CORES>]
+
   note: MPI_CORES not needed since default np=2 cores
-e.g.: 
-  ./run.sh (this will run ALL the OSU Microbenchmark tests)
-  
-  ./run.sh pt2pt/osu_bw
-  ./run.sh collective/osu_reduce_scatter
-  
-Full list of OSU Benchmarks test commands:
+
+* Usage: 
+ - Two usages: 
+   1.) Full OSU Benchmark Tests including pt2pt/* one-sided/* collective/* :
+        ./run.sh  (this will run ALL the OSU Microbenchmark tests)
+   2.) Test specific OSU test case, e.g. pt2pt/osu_bw, collective/osu_reduce_scatter, ...
+        ./run.sh pt2pt/osu_bw
+        ./run.sh collective/osu_reduce_scatter
+
+* Output directory & files:
+  $HOME/data/
+
+* Full list of OSU Benchmarks test commands:
   collective/osu_allgather
   collective/osu_allgatherv
   collective/osu_allreduce
@@ -61,7 +63,6 @@ Full list of OSU Benchmarks test commands:
   startup/osu_init
 
 ```
-
 ## Build (Warning: custom-built only!)
 ```
 ./build.sh
