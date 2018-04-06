@@ -25,7 +25,7 @@ if [ $# -lt 1 ]; then
     for i in ${test_set}; do
         # mpirun --allow-run-as-root -np 2 pt2pt/osu_bibw 2>null | tee /home/developer/data/osu_bibw.out
         out_file=`echo $i|tr "/" "_"`
-        /usr/bin/mpirun --allow-run-as-root -np 2 $i 2>null | tee ${OUT_DIR}/${out_file}.out
+        /usr/bin/mpirun --allow-run-as-root -np 2 $i 2>/dev/null | tee ${OUT_DIR}/${out_file}.out
     done
 else
     echo "... Run specific OSU Benchmark test case ..."
@@ -42,7 +42,7 @@ else
     #/usr/bin/mpirun ${OSU_MPI_DIR}/${MPI_CMD} -np $*
     # (Example) /usr/bin/mpirun -np 2 --allow-run-as-root pt2pt/osu_bw
     out_file=`echo ${MPI_CMD}|tr "/" "_"`
-    /usr/bin/mpirun --allow-run-as-root -np ${MPI_CORES} ${MPI_CMD} 2>null | tee ${OUT_DIR}/${out_file}.out
+    /usr/bin/mpirun --allow-run-as-root -np ${MPI_CORES} ${MPI_CMD} 2>/dev/null | tee ${OUT_DIR}/${out_file}.out
 fi
 
 exit 0
