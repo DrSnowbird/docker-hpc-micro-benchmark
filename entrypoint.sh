@@ -3,9 +3,8 @@
 echo "Entrypoint call: at `pwd`"
 echo $*
 
-if [ -e /home/developer/data ]; then
-    OUT_DIR=/home/developer/data
-else
+OUT_DIR=/home/developer/data
+if [ ! -e /home/developer/data ]; then
     OUT_DIR=${HOME}/data
     mkdir -p ${OUT_DIR}
 fi
